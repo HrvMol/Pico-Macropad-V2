@@ -57,6 +57,7 @@ def btn_settings(btn_pin):
     btn.pull = digitalio.Pull.UP
     return btn
 
+# SET THE PINS BASED OFF YOUR BOARD
 btn1 = btn_settings(board.GP22)
 btn2 = btn_settings(board.GP26)
 btn3 = btn_settings(board.GP27)
@@ -123,6 +124,7 @@ def display_out(newPage):
             # if index is not to be set, try to remove any existing image in the place
             if not str(i) in newPage:
                 try:
+                    # remove images from indexes that arent used.
                     # as popping shortens the length, popCount accomodates for it in future pop operations
                     screen.pop(i - popCount)
                     popCount+=1
@@ -149,6 +151,7 @@ def display_out(newPage):
             i+=1
             
         # errors relating to either no image or a incorrect reference
+        # set image to the default no image image
         except (OSError, KeyError):
             print('Issue with image')
             
@@ -163,15 +166,17 @@ def display_out(newPage):
             
     # update display
     display.root_group = screen
+
+    # USE THIS TO CHECK FREE MEMORY
     # print('memory free:', gc.mem_free())
     # print('memory allocated:', gc.mem_alloc())
+
     return(newPage)
     
-
+# TO DO: OPTIMISE THIS
 # Change page or call macro function
 def handle_buttons(button, current_page, pages):
     try:
-        # print(current_page[button]['page'])
         current_page = display_out(pages[current_page[button]['page']])
     except KeyError as e:
         print(e)
@@ -179,40 +184,41 @@ def handle_buttons(button, current_page, pages):
         if str(e) != 'page':
             print('error')
         else:
-            print('macro')
             handle_macro(current_page[button])
         pass
     return current_page
 
+# set the page to home on start up
 current_page = display_out(pages['Home'])
         
+# run program indefinitely
 while True:
+    # handle button presses
     if not btn1.value and btn1.value != btn1_last:
-        print('button 1 pressed')
         current_page = handle_buttons('1', current_page, pages)
+
     if not btn2.value and btn2.value != btn2_last:
-        print('button 2 pressed')
         current_page = handle_buttons('2', current_page, pages)
+
     if not btn3.value and btn3.value != btn3_last:
-        print('button 3 pressed')
         current_page = handle_buttons('3', current_page, pages)
+
     if not btn4.value and btn4.value != btn4_last:
-        print('button 4 pressed')
         current_page = handle_buttons('4', current_page, pages)
+
     if not btn5.value and btn5.value != btn5_last:
-        print('button 5 pressed')
         current_page = handle_buttons('5', current_page, pages)
+
     if not btn6.value and btn6.value != btn6_last:
-        print('button 6 pressed')
         current_page = handle_buttons('6', current_page, pages)
+
     if not btn7.value and btn7.value != btn7_last:
-        print('button 7 pressed')
         current_page = handle_buttons('7', current_page, pages)
+
     if not btn8.value and btn8.value != btn8_last:
-        print('button 8 pressed')
         current_page = handle_buttons('8', current_page, pages)
+        
     if not btn9.value and btn9.value != btn9_last:
-        print('button 9 pressed')
         current_page = handle_buttons('9', current_page, pages)
     
     # Debouncing the buttons

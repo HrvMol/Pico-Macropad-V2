@@ -1,4 +1,8 @@
-# This version of the project utilises displayio.OnDiskBitmap() to load images directly from the storage, minimising memory usage. This is good for microcontrollers with minimal memory.
+'''
+This version of the project utilises displayio.OnDiskBitmap() to load images directly from the storage.
+This minimises memory usage. 
+This is good for microcontrollers with minimal memory.
+'''
 
 import board
 import busio
@@ -11,6 +15,20 @@ import usb_hid
 from adafruit_hid.keyboard import Keyboard
 from adafruit_hid.keycode import Keycode
 
+# EDIT THESE TO FIT YOUR DEVICE
+# setting pins for the display
+DIN = board.GP3
+CLK = board.GP2
+CS = board.GP0
+DC = board.GP1
+RST = board.GP4
+
+# display dimensions
+WIDTH = 240
+HEIGHT = 320
+
+
+
 #setting keyboard as a usb device
 keyboard = Keyboard(usb_hid.devices)
 
@@ -20,99 +38,22 @@ data = json.load(f)
 pages = data['pages']
 f.close()
 
-# setting pages
-#previous_page = current_page = pages['Home']
-#print(current_page)
-
 # Setting up display
 displayio.release_displays()
 
-DIN = board.GP3
-CLK = board.GP2
-CS = board.GP0
-DC = board.GP1
-RST = board.GP4
-
-WIDTH = 240
-HEIGHT = 320
-
+# configure the display
 spi = busio.SPI(clock=CLK, MOSI=DIN)
 display_bus = displayio.FourWire(spi, command = DC, chip_select=CS, reset=RST)
-
 display = adafruit_ili9341.ILI9341(display_bus, width=WIDTH, height=HEIGHT, rotation=90)
 
-# Create a bitmap with two colors
-#bitmap = displayio.Bitmap(display.width, display.height, 2)
-
-# Create a two color palette
-#palette = displayio.Palette(2)
-#palette[0] = 0x000000
-#palette[1] = 0xffffff
-
-# Create a TileGrid using the Bitmap and Palette
-#grid_overlay = displayio.TileGrid(bitmap, pixel_shader=palette)
-
-#bitmapImage, palette = adafruit_imageload.load("/images/helldivers.bmp", bitmap=displayio.Bitmap, palette=displayio.Palette)
-#tile_grid1 = displayio.TileGrid(bitmapImage, pixel_shader=palette, y=80)
-
-#NOT WORKING
-#def set_images(page):
-#    coordinates = [(0, 81), (81, 81)]
-#    tile_grid = []
-#    for i in range(len(page)):
-#        print('started')
-#        #bitmapImage = displayio.OnDiskBitmap(str(page[f'{i}']['image']))
-#        bitmapImage = displayio.OnDiskBitmap('/images/helldivers.bmp')
-#        tile_grid.append(displayio.TileGrid(bitmapImage, pixel_shader=bitmapImage.pixel_shader, x=coordinates[i][0], y=coordinates[i][1]))
-#    return tile_grid
-        
-#print(current_page['1']['image'])
-#tile_grid = set_images(current_page)
-
-# Create a Group
-#group = displayio.Group()
-
-#NOT WORKING
-#for i in range(len(tile_grid)):
-#    print(dir(tile_grid[i]))
-#    group.append(tile_grid[i])
-
-# Add the TileGrid to the Group
-#TODO: WORK OUT HOW TO MAKE OVERLAY SHOW OVERTOP WITHOUT COVERING OTHER LAYERS
-#group.append(grid_overlay)
-#group.append(tile_grid1)
-
-# Add the Group to the Display
-#display.root_group = group
-
-# Draw overlay grid    
-#for x in range(78, 81):
-#    for y in range(80, HEIGHT):
-#        bitmap[x, y] = 1
-
-#for x in range(159, 162):
-#    for y in range(80, HEIGHT):
-#        bitmap[x, y] = 1
-
-
-#for x in range(0, WIDTH):
-#    for y in range(77, 80):
-#        bitmap[x, y] = 1
-
-#for x in range(0, WIDTH):
-#    for y in range(158, 161):
-#        bitmap[x, y] = 1
-
-#for x in range(0, WIDTH):
-#    for y in range(239, 242):
-#        bitmap[x, y] = 1
-        
+# set up buttons
 def btn_settings(btn_pin):
     btn = digitalio.DigitalInOut(btn_pin)
     btn.direction = digitalio.Direction.INPUT
     btn.pull = digitalio.Pull.UP
     return btn
 
+# SET THE PINS BASED OFF YOUR BOARD
 btn1 = btn_settings(board.GP22)
 btn2 = btn_settings(board.GP26)
 btn3 = btn_settings(board.GP27)
@@ -123,7 +64,7 @@ btn7 = btn_settings(board.GP16)
 btn8 = btn_settings(board.GP17)
 btn9 = btn_settings(board.GP18)
 
-
+# button last value for debouncing
 btn1_last = btn2_last = btn3_last = btn4_last = btn5_last = btn6_last = btn7_last = btn8_last = btn9_last = True
 
 runningMacros = []
