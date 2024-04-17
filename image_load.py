@@ -17,6 +17,10 @@ from adafruit_hid.keyboard import Keyboard
 from adafruit_hid.keycode import Keycode
 import adafruit_imageload
 import gc
+import microcontroller
+
+#YOU CAN USE THIS TO OVERCLOCK YOUR DEVICE IF IT LOADS IMAGES SLOWLY
+#microcontroller.cpu.frequency = 250000000
 
 # EDIT THESE TO FIT YOUR DEVICE
 # setting pins for the display
@@ -48,7 +52,7 @@ screen = displayio.Group()
 # configure the display
 spi = busio.SPI(clock=CLK, MOSI=DIN)
 display_bus = displayio.FourWire(spi, command = DC, chip_select=CS, reset=RST)
-display = adafruit_ili9341.ILI9341(display_bus, width=WIDTH, height=HEIGHT, rotation=90)
+display = adafruit_ili9341.ILI9341(display_bus, width=WIDTH, height=HEIGHT, rotation=90, auto_refresh=False)
     
 # set up buttons
 def btn_settings(btn_pin):
@@ -76,9 +80,6 @@ def handle_macro(button):
     macro = button['macro']
     try: delay = button['delay']
     except: delay = 0.01
-    
-    print(macro)
-    print(delay)
     
     for i in range(len(macro)):
         # handle combined bindings
@@ -113,6 +114,8 @@ def handle_macro(button):
             
 # Refresh display with new images
 def display_out(newPage):
+    #start = time.monotonic()
+    
     global screen
     i=1
     popCount = 0
@@ -128,62 +131,62 @@ def display_out(newPage):
                     # as popping shortens the length, popCount accomodates for it in future pop operations
                     screen.pop(i - popCount)
                     popCount+=1
-                    print('removed')
-                    
                 except: pass
                 i+=1
                 continue
             
-            # setting x and y coordinates for each image
-            x = 80 * ((i-1) % 3)
-            y = 80 + 80 * ((i-1) // 3)
-            
             # load image to memory and set as a tile grid
-            bitmapImage, palette = adafruit_imageload.load(
-                str(newPage[f'{i}']['image']), bitmap=displayio.Bitmap, palette=displayio.Palette
-            )
-            image = displayio.TileGrid(bitmapImage, pixel_shader=palette, x=x, y=y)
-            
-            # update screen with the new image or set the image
-            try: screen[i] = image
-            except: screen.append(image)
-            
-            i+=1
-            
+            i = load_image(str(newPage[f'{i}']['image']), i)
+        
         # errors relating to either no image or a incorrect reference
         # set image to the default no image image
-        except (OSError, KeyError):
-            print('Issue with image')
-            
-            # Load the noImage image
-            noImage, noImagePalette = adafruit_imageload.load('/images/noimage.bmp', bitmap=displayio.Bitmap, palette=displayio.Palette)
-            image = displayio.TileGrid(noImage, pixel_shader=noImagePalette, x=x, y=y)
-            
-            try: screen[i] = image
-            except: screen.append(image)
-            
-            i+=1
+        except (OSError, KeyError):            
+            i = load_image('/images/no-image.bmp', i)
             
     # update display
     display.root_group = screen
+    display.refresh()
 
-    # USE THIS TO CHECK FREE MEMORY
-    # print('memory free:', gc.mem_free())
-    # print('memory allocated:', gc.mem_alloc())
-
+    # USE THIS TO CHECK FREE MEMORY AND MEASURE TIME TAKEN FOR SCREEN UPDATES
+    #print('memory free:', gc.mem_free())
+    #print('memory allocated:', gc.mem_alloc())
+    #print(microcontroller.cpu.frequency)
+    #print(microcontroller.cpu.temperature)
+    #end = time.monotonic()
+    #print('time taken:', end - start)
     return(newPage)
+
+# load images and add to screen
+def load_image(link, i):
+    global screen
     
-# TO DO: OPTIMISE THIS
+    # setting x and y coordinates for each image
+    x = 80 * ((i-1) % 3)
+    y = 80 + 80 * ((i-1) // 3)
+    
+    # use faster memory loading and then when memory runs out, use disk loading
+    try:
+        bitmapImage, palette = adafruit_imageload.load(link, bitmap=displayio.Bitmap, palette=displayio.Palette)
+        image = displayio.TileGrid(bitmapImage, pixel_shader=palette, x=x, y=y)
+    except MemoryError:
+        print('memory error')
+        bitmapImage = displayio.OnDiskBitmap(link)
+        image = displayio.TileGrid(bitmapImage, pixel_shader=bitmapImage.pixel_shader, x=x, y=y)
+    
+    try: screen[i] = image
+    except: screen.append(image)
+    
+    i+=1
+    
+    return i
+    
 # Change page or call macro function
 def handle_buttons(button, current_page, pages):
     try:
         current_page = display_out(pages[current_page[button]['page']])
     except KeyError as e:
-        print(e)
         # if the page doesnt exist throw error
-        if str(e) != 'page':
-            print('error')
-        else:
+        if str(e) == 'page':
             handle_macro(current_page[button])
         pass
     return current_page
