@@ -1,0 +1,273 @@
+{"pages": {
+    "Home": {
+        "1": {
+            "page": "Helldivers",
+            "image": "/images/helldivers.bmp"
+        },
+        "2": {
+            "page": "General Macros",
+            "image": "/images/generalmacros.bmp"
+        },
+        "3": {
+            "page": "War Thunder",
+            "image": "/images/warthunder.bmp"
+        },
+        "4": {
+            "page": "Assetto Corsa",
+            "image": "/images/assetto-corsa.bmp"
+        },
+        "5": {
+            "page": "Alt Code",
+            "image": "/images/alt-code.bmp"
+        },
+        "6": {
+            "macro": [["WINDOWS", "LEFT_SHIFT", "S"]],
+            "image": "/images/screenshot.bmp"
+        },
+        "7": {
+            "page": "Pure Ref"
+        },
+        "8": {
+            "page": "Obsidian",
+            "image": "/images/obsidian.bmp"
+        }
+    },
+    "Helldivers": {
+        "1": {
+            "page": "Home",
+            "image": "/images/prev.bmp"
+        },
+        "2": {
+            "macro": [
+                "UP_ARROW",
+                "RIGHT_ARROW",
+                "DOWN_ARROW",
+                "DOWN_ARROW",
+                "RIGHT_ARROW"
+            ],
+            "delay": 0.05,
+            "image": "/images/eagle-cluster-bomb.bmp"
+        },
+        "3": {
+            "macro": [
+                "UP_ARROW",
+                "RIGHT_ARROW",
+                "DOWN_ARROW",
+                "RIGHT_ARROW"
+            ],
+            "delay": 0.05,
+            "image": "/images/eagle-airstrike.bmp"
+        },
+        "4": {
+            "macro": [
+                "DOWN_ARROW",
+                "UP_ARROW",
+                "LEFT_ARROW",
+                "UP_ARROW",
+                "RIGHT_ARROW",
+                "RIGHT_ARROW"
+            ],
+            "delay": 0.05,
+            "image": "/images/guard-dog-rover.bmp"
+        },
+        "5": {
+            "macro": [
+                "DOWN_ARROW",
+                "LEFT_ARROW",
+                "DOWN_ARROW",
+                "UP_ARROW",
+                "LEFT_ARROW"
+            ],
+            "delay": 0.05,
+            "image": "/images/laser-cannon.bmp"
+        }
+    },
+    "General Macros" : {
+        "1": {
+            "page": "Home",
+            "image": "/images/prev.bmp"
+        },
+        "2": {
+            "macro": [
+                "ONE",
+                "TWO",
+                "THREE",
+                "FOUR",
+                "FIVE",
+                "SIX"
+            ],
+            "delay": 0.1,
+            "type": "toggle"
+        }
+    },
+    "Alt Code": {
+        "1": {
+            "page": "Home",
+            "image": "/images/prev.bmp"
+        },
+        "2": {
+            "macro": [
+                "ALT.down",
+                "KEYPAD_ZERO",
+                "KEYPAD_ONE",
+                "KEYPAD_FIVE",
+                "KEYPAD_THREE",
+                "ALT.up"
+            ],
+            "image": "/images/trademark.bmp"
+        },
+        "3": {
+            "macro": [
+                "ALT.down",
+                "KEYPAD_THREE",
+                "ALT.up"
+            ],
+            "image": "/images/heart.bmp"
+        }
+    },
+    "Assetto Corsa": {
+        "1": {
+            "page": "Home",
+            "image": "/images/prev.bmp"
+        },
+        "2": {
+            "macro": [["A", "LEFT_SHIFT"]],
+            "image": "/images/acc-abs-increase.bmp"
+        },
+        "3": {
+            "macro": [["A", "CONTROL"]],
+            "image": "/images/acc-abs-decrease.bmp"
+        },
+        "4": {
+            "page": "Assetto Corsa Lights"
+        },
+        "5": {
+            "macro": [["E", "LEFT_SHIFT"]],
+            "image": "/images/acc-eng-increase.bmp"
+        },
+        "6": {
+            "macro": [["E", "CONTROL"]],
+            "image": "/images/acc-eng-decrease.bmp"
+        },
+        "7": {
+            "page": "Assetto Corsa MFD",
+            "image": "/images/acc-mfd.bmp"
+        }
+    },
+    "Assetto Corsa Lights": {
+        "1": {
+            "page": "Assetto Corsa",
+            "image": "/images/prev.bmp"
+        },
+        "2": {
+            "macro": [["LEFT_ARROW", "ALT"]],
+            "image": "/images/left-arrow.bmp"
+        },
+        "3": {
+            "macro": [["RIGHT_ARROW", "ALT"]],
+            "image": "/images/right-arrow.bmp"
+        },
+        "4": {
+            "macro": [["L"]],
+            "image": "/images/acc-lights.bmp"
+        },
+        "5": {
+            "macro": [["L", "CONTROL"]],
+            "image": "/images/acc-rain-lights.bmp"
+        },
+        "6": {
+            "macro": [["L", "LEFT_SHIFT"]],
+            "image": "/images/acc-flasher.bmp"
+        },
+        
+        "7": {
+            "macro": [["W", "ALT"]],
+            "image": "/images/acc-toggle-wipers.bmp"
+        },
+        "8": {
+            "macro": [["R", "ALT"]],
+            "image": "/images/acc-cycle-wipers.bmp"
+        }
+    },
+    "Assetto Corsa MFD": {
+        "1": {
+            "page": "Assetto Corsa",
+            "image": "/images/prev.bmp"
+        },
+        "2": {
+            "macro": ["U"],
+            "image": "/images/acc-mfd-pos.bmp"
+        },
+        "3": {
+            "macro": ["I"],
+            "image": "/images/acc-mfd-standings.bmp"
+        },
+        "4": {
+            "macro": ["O"],
+            "image": "/images/acc-mfd-electronics.bmp"
+        },
+        "5": {
+            "macro": ["P"],
+            "image": "/images/acc-mfd-pit.bmp"
+        }
+    },
+    "Pure Ref": {
+        "1": {
+            "page": "Home",
+            "image": "/images/prev.bmp"
+        },
+        "2": {
+            "macro": [["L","CONTROL"]]
+        },
+        "3": {
+            "macro": [["F","CONTROL"]]
+        },
+        "4": {
+            "macro": [["A","CONTROL", "LEFT_SHIFT"]]
+        }
+    },
+    "War Thunder": {
+        "1": {
+            "page": "Home",
+            "image": "/images/prev.bmp"
+        },
+        "2": {
+            "page": "War Thunder Computer",
+            "image": "/images/warthunder-computer.bmp"
+        }
+    },
+    "Obsidian": {
+        "1": {
+            "page": "Home",
+            "image": "/images/prev.bmp"
+        },
+        "2": {
+            "macro": [["ALT", "N"]],
+            "image": "/images/new.bmp"
+        },
+        "3": {
+            "macro": [["ALT", "D"]],
+            "image": "/images/delete.bmp"
+        },
+        "4": {
+            "macro": [["CONTROL", "M"]],
+            "image": "/images/move.bmp"
+        },
+        "5": {
+            "macro": [["ALT", "L"]],
+            "image": "/images/link.bmp"
+        },
+        "6": {
+            "macro": [["ALT", "T"]],
+            "image": "/images/template.bmp"
+        },
+        "7": {
+            "macro": [["ALT", "H"]],
+            "image": "/images/highlight.bmp"
+        },
+        "8": {
+            "macro": [["CONTROL", "ALT", "H"]],
+            "image": "/images/unhighlight.bmp"
+        }
+    }
+}}
